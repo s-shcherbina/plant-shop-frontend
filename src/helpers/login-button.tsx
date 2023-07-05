@@ -13,7 +13,7 @@ const LoginButton: FC = (): JSX.Element => {
   const navigate = useNavigate();
   // const auth = useAuth();
   // const admin = useAdmin();
-  const auth = true;
+  const auth = false;
 
   return (
     <PopupState variant='popover'>

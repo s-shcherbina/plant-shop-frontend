@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y, EffectCube, Autoplay, EffectFade } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
-import { useState } from 'react';
 import { Stack, Typography } from '@mui/material';
 import uuid from 'react-uuid';
 
@@ -11,13 +10,8 @@ const SliderFade = ({ items }: any) => {
 
   return (
     <Swiper
-      modules={[
-        EffectFade,
-        Pagination,
-        A11y,
-        // EffectCube,
-        Autoplay,
-      ]}
+      modules={[EffectFade, Pagination, A11y, Autoplay]}
+      // modules={[ Pagination, A11y, EffectCube, Autoplay]}
       autoplay={{
         delay: 5000,
         disableOnInteraction: false,
@@ -48,7 +42,7 @@ const SliderFade = ({ items }: any) => {
             direction='column-reverse'
             sx={{
               background: `url(${item.image}) center/cover`,
-              height: { xs: '45vh', sm: '60vh', md: '80vh' },
+              height: { xs: '45vh', sm: '60vh', md: '68vh', lg: '80vh' },
               color: '#FFF',
               textAlign: 'center',
               borderRadius: 2,

@@ -1,10 +1,8 @@
-import { AppBar, Box, Button, Divider, Typography } from '@mui/material';
-import { FC, Fragment, useState } from 'react';
+import { AppBar, Box } from '@mui/material';
+import { FC, useState } from 'react';
 import { groups } from '../../common/moks';
-import uuid from 'react-uuid';
 import { Between } from '../../helpers';
 import GroupButton from '../../helpers/group-button';
-import LoginButton from '../../helpers/login-button';
 
 const Catalog: FC = (): JSX.Element => {
   const [color, setColor] = useState('');
@@ -28,29 +26,53 @@ const Catalog: FC = (): JSX.Element => {
       <Between>
         {groups.map((group) => (
           <GroupButton
-            // key={uuid()}
             key={group.name}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
             color={color}
             setColor={setColor}
             group={group.name}
           />
-          // </>
-          // <LoginButton />
-
-          // <Button
-          //   color={color === group ? 'warning' : 'primary'}
-          //   key={uuid()}
-          //   sx={{
-          //     borderRadius: 5,
-          //     px: 2.5,
-          //     '&:hover': { color: 'darkorange !important' },
-          //   }}
-          //   onClick={() => setColor(group)}
-          // >
-          //   {group.name}
-          // </Button>
         ))}
       </Between>
+      {/* <Between
+        sx={{
+          display: {
+            xs: 'none',
+            sm: 'flex',
+            lg: 'none',
+          },
+        }}
+      >
+        {groups.slice(0, 4).map((group) => (
+          <GroupButton
+            key={group.name}
+            sideButton={false}
+            color={color}
+            setColor={setColor}
+            group={group.name}
+          />
+        ))}
+      </Between>
+      <Between
+        sx={{
+          display: {
+            xs: 'none',
+            sm: 'flex',
+            lg: 'none',
+          },
+        }}
+      >
+        {groups.slice(4).map((group) => (
+          <GroupButton
+            key={group.name}
+            sideButton={false}
+            color={color}
+            setColor={setColor}
+            group={group.name}
+          />
+        ))}
+      </Between>*/}
     </AppBar>
   );
 };

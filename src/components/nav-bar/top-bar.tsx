@@ -38,7 +38,7 @@ const TopBar: FC = (): JSX.Element => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [page, setPage] = useState('');
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   const [catalogOpen, setCatalogOpen] = useState(false);
 
   // const menuToggle = () => setMenuOpen(!menuOpen);

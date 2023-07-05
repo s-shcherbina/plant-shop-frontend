@@ -22,6 +22,7 @@ import imgOne from '../assets/img-one.jpg';
 import imgTwo from '../assets/img-two.jpg';
 import imgThree from '../assets/img-three.jpg';
 import imgFour from '../assets/img-four.jpg';
+import imgFive from '../assets/img-five.jpg';
 import HomePage from '../pages/home';
 import Subgroup from '../pages/subgroup';
 import Group from '../pages/group';
@@ -52,8 +53,8 @@ export const navMenu = [
   },
   {
     name: `Як${'\u00A0'}доглядати`,
-    icon: <Description fontSize='small' />,
-    // icon: <LocalFlorist fontSize='small' />,
+    // icon: <Description fontSize='small' />,
+    icon: <LocalFlorist fontSize='small' />,
     path: '/care',
   },
   {
@@ -137,7 +138,17 @@ export const items = [
     description: 'Button className CheckButtonCheck it out!',
     image: imgFour,
   },
+  {
+    name: 'Random Name #5',
+    description: 'Hello World!Button className CheckButtonCheck it out',
+    image: imgFive,
+  },
 ];
+
+export const itemsXL = items.map((item, index) => [
+  item,
+  items[items.length - 1 - index],
+]);
 
 export const logoutActions = [
   { text: 'Вийти з аккаунту', icon: <Logout />, path: '/shop' },
@@ -169,7 +180,8 @@ export const groups = [
   { name: 'Троянди', path: '' },
   { name: 'Багаторічникі', path: '' },
   {
-    name: `Декоративні${'\u00A0'}кущі${'\u00A0'}та${'\u00A0'}дерева`,
+    // name: `Декоративні${'\u00A0'}кущі${'\u00A0'}та${'\u00A0'}дерева`,
+    name: `Кущі${'\u00A0'}та${'\u00A0'}дерева`,
     path: '',
   },
   { name: `Плодово${'\u2011'}ягідні`, path: '' },
@@ -179,6 +191,9 @@ export const groups = [
 ];
 
 export const groupsSideBar = [
+  { name: 'Троянди', path: '' },
+  { name: 'Багаторічникі', path: '' },
+  { name: `Насіння,${'\u00A0'}захист`, path: '' },
   { name: `Стильні${'\u00A0'}букети`, path: '' },
   {
     name: `Кущі${'\u00A0'}та${'\u00A0'}дерева`,
@@ -186,9 +201,6 @@ export const groupsSideBar = [
   },
   { name: `Плодово${'\u2011'}ягідні`, path: '' },
   { name: `Кімнатні${'\u00A0'}рослини`, path: '' },
-  { name: 'Троянди', path: '' },
-  { name: 'Багаторічникі', path: '' },
-  { name: `Насіння,${'\u00A0'}захист`, path: '' },
 ];
 
 export const subgroups = [

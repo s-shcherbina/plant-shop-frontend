@@ -1,13 +1,15 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Divider, List, useTheme } from '@mui/material';
+import { Divider, List, Stack, useTheme } from '@mui/material';
 import { groupsSideBar, navMenu } from '../common/moks';
 import uuid from 'react-uuid';
 import SideBarButton from '../helpers/side-bar-button';
+import GroupButton from '../helpers/group-button';
 
 const SideBar: FC = (): JSX.Element => {
   const { pathname } = useLocation();
   const theme = useTheme();
+  const [color, setColor] = useState('');
 
   return (
     // <IconButton onClick={() => setIsOpen(!isOpen)} sx={{ m: 'auto' }}>
@@ -21,18 +23,7 @@ const SideBar: FC = (): JSX.Element => {
         width: '100%',
       }}
     >
-      {groupsSideBar.map((item) => (
-        <SideBarButton
-          key={uuid()}
-          pathname={pathname}
-          path={item.path}
-          // icon={<LocalFlorist />}
-          name={item.name}
-          click={() => localStorage.removeItem('token')}
-        />
-      ))}
-      <Divider sx={{ m: 2 }} />
-      {navMenu.map((item) => (
+      {/* {navMenu.map((item) => (
         <SideBarButton
           key={uuid()}
           pathname={pathname}
@@ -42,16 +33,17 @@ const SideBar: FC = (): JSX.Element => {
           click={() => localStorage.removeItem('token')}
         />
       ))}
-      {/* <SideBarButton
-              pathname={pathname}
-              path={logout.path}
-              icon={logout.icon}
-              name={logout.name}
-              click={() => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('name');
-              }}
-            /> */}
+      <Divider sx={{ m: 1 }} />{' '} */}
+      {groupsSideBar.map((group) => (
+        <GroupButton
+          key={group.name}
+          anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'center', horizontal: 'left' }}
+          color={color}
+          setColor={setColor}
+          group={group.name}
+        />
+      ))}
     </List>
   );
 };

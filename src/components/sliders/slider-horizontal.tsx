@@ -1,20 +1,25 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Scrollbar, A11y, Autoplay, EffectCoverflow } from 'swiper';
+import { Scrollbar, A11y, Autoplay, EffectCoverflow, Pagination } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Grid, IconButton, Stack, Typography } from '@mui/material';
 import uuid from 'react-uuid';
-import { itemsXL } from '../../common/moks';
+import { items, itemsXL } from '../../common/moks';
 import { Info } from '@mui/icons-material';
 import { BetweenCenter } from '../../helpers';
 
-const SliderVertical = () => {
+const SliderHorizontal: FC<{ num: number }> = ({ num }) => {
   // const [num, setNum] = useState(-1);
   // console.log(num);
+  // const num = 2;
 
   return (
     <Swiper
-      modules={[Scrollbar, A11y, Autoplay, EffectCoverflow]}
+      pagination={{
+        clickable: true,
+      }}
+      // modules={[Pagination]}
+      modules={[Scrollbar, A11y, Autoplay, EffectCoverflow, Pagination]}
       nested={true}
       spaceBetween={10}
       autoplay={{
@@ -23,8 +28,9 @@ const SliderVertical = () => {
       }}
       observer={true}
       speed={10000}
-      direction={'vertical'}
-      slidesPerView={5}
+      // direction={'vertical'}
+      slidesPerView={num}
+      // slidesPerGroup={4}
       scrollbar={{ draggable: true }}
       loop={true}
     >
@@ -34,27 +40,33 @@ const SliderVertical = () => {
           // onClick={() => setNum(index)}
           style={{ cursor: 'pointer' }}
         >
-          <Grid container columnSpacing={1.5}>
-            <Grid item lg={12} xl={6}>
-              <Stack
-                direction='column-reverse'
-                sx={{
-                  background: `url(${item[0].image}) center/cover`,
-                  height: 125,
-                  minWidth: 200,
-                  color: '#FFF',
-                  borderRadius: 1,
-                }}
-                // onClick={() => setNum(index)}
-              >
-                <BetweenCenter>
-                  <Typography variant='body1'>{item[0].name}</Typography>
-                  <IconButton>
-                    <Info sx={{ color: '#FFF' }} />
-                  </IconButton>
-                </BetweenCenter>
-              </Stack>
-            </Grid>
+          {/* <Grid container columnSpacing={1.5}>
+            <Grid
+              item
+              lg={12}
+              xl={6}
+              // sx={{ width: '100%' }}
+              // sx={{ border: 'solid', width: '99%', display: 'flex' }}
+            > */}
+          <Stack
+            direction='column-reverse'
+            sx={{
+              background: `url(${item[0].image}) center/cover`,
+              height: 125,
+              // width: 200,
+              minWidth: 140,
+              color: '#FFF',
+              borderRadius: 1,
+            }}
+          >
+            <BetweenCenter>
+              <Typography variant='body1'>{item[0].name}</Typography>
+              <IconButton>
+                <Info sx={{ color: '#FFF' }} />
+              </IconButton>
+            </BetweenCenter>
+          </Stack>
+          {/* </Grid>
             <Grid item xl={6} sx={{ display: { xl: 'flex', lg: 'none' } }}>
               <Stack
                 direction='column-reverse'
@@ -65,9 +77,6 @@ const SliderVertical = () => {
                   borderRadius: 1,
                   minWidth: 200,
                 }}
-                // onClick={() =>
-                //   setNum(itemsXL.concat(itemsXL.reverse()).length - 1 - index)
-                // }
               >
                 <BetweenCenter>
                   <Typography variant='body1'>{item[1].name}</Typography>
@@ -77,11 +86,11 @@ const SliderVertical = () => {
                 </BetweenCenter>
               </Stack>
             </Grid>
-          </Grid>
+          </Grid> */}
         </SwiperSlide>
       ))}
     </Swiper>
   );
 };
 
-export default SliderVertical;
+export default SliderHorizontal;

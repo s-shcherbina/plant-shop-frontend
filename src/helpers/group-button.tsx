@@ -1,102 +1,137 @@
-import { Box, Button, Divider, Menu, MenuItem, Popover } from '@mui/material';
-import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
-import { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Popover,
+  // useTheme,
+} from '@mui/material';
+import { FC, Fragment, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { subgroups } from '../common/moks';
+// import { blue } from '@mui/material/colors';
+
+interface IOrigin {
+  vertical: number | 'center' | 'bottom' | 'top';
+  horizontal: number | 'center' | 'right' | 'left';
+}
 
 const GroupButton: FC<{
   color: string;
   setColor: (value: string) => void;
   group: string;
-}> = ({ color, setColor, group }): JSX.Element => {
+  anchorOrigin: IOrigin;
+  transformOrigin: IOrigin;
+}> = ({
+  color,
+  setColor,
+  group,
+  anchorOrigin,
+  transformOrigin,
+}): JSX.Element => {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const { pathname } = useLocation();
+  // const theme = useTheme();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const open = Boolean(anchorEl);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+
+  const handlePopoverClose = () => {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const click = (path: string) => {
+    setColor(group);
+    handlePopoverClose();
+    navigate(path);
+  };
 
   return (
-    // <div>
-    //   <Button
-    //     aria-describedby={id}
-    //     color={color === group ? 'warning' : 'primary'}
-    //     sx={{
-    //       borderRadius: 5,
-    //       px: 2.5,
-    //       '&:hover': { color: 'darkorange !important' },
-    //     }}
-    //     onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-    //       setAnchorEl(event.currentTarget);
-    //       setColor(group);
-    //       navigate('/group');
-    //     }}
-    //   >
-    //     {group}
-    //   </Button>
-    //   <Popover
-    //     id={id}
-    //     open={open}
-    //     anchorEl={anchorEl}
-    //     onClose={handleClose}
-    //     anchorOrigin={{
-    //       vertical: 'bottom',
-    //       horizontal: 'left',
-    //     }}
-    //   >
-    //     <h1>Popover</h1>
-    //   </Popover>
-    // </div>
-
-    <PopupState variant='popover'>
-      {(popupState: any) => {
-        const selectSubgroups = (subgroups: { name: string; path: string }[]) =>
-          subgroups.map((subgroup) => (
-            <MenuItem
-              key={subgroup.name}
-              onClick={() => {
-                popupState.close();
-                navigate('/subgroup');
-              }}
-              divider
-              sx={{ p: 1 }}
-            >
-              <Box sx={{ pl: 2 }}>{subgroup.name}</Box>
-            </MenuItem>
-          ));
-        return (
-          <>
-            <Button
-              color={color === group ? 'warning' : 'primary'}
+    <Box sx={{ pointerEvents: 'auto' }} onMouseLeave={handlePopoverClose}>
+      <Box
+        aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup='true'
+        onMouseEnter={handlePopoverOpen}
+      >
+        {anchorOrigin.horizontal === 'right' ? (
+          <ListItem>
+            <ListItemButton
               sx={{
+                my: 1.6,
+                height: '2.4rem',
+                textAlign: 'center !important',
                 borderRadius: 5,
-                px: 2.5,
-                '&:hover': { color: 'darkorange !important' },
+                // bgcolor:
+                //   color === group && pathname === '/group'
+                //     ? `${blue[500]} !important`
+                //     : '',
+                // color:
+                //   color === group
+                //     ? '#FFF !important'
+                //     : theme.palette.text.secondary,
+                // '&:hover': {
+                //   bgcolor: `${blue[500]} !important`,
+                //   color: '#FFF',
+                // '& .MuiSvgIcon-root': {
+                //   color: '#FFF !important',
+                // },
+                // },
               }}
-              onFocus={() => {
-                setColor(group);
-                navigate('/group');
-              }}
-              {...bindTrigger(popupState)}
+              onClick={() => click('/group')}
             >
-              {group}
-            </Button>
-
-            <Menu {...bindMenu(popupState)}>
+              <ListItemText primary={group} />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          <Button
+            color={
+              color === group &&
+              (pathname === '/group' || pathname === '/subgroup')
+                ? 'warning'
+                : 'primary'
+            }
+            sx={{
+              borderRadius: 5,
+              px: 2.5,
+            }}
+            onClick={() => click('/group')}
+          >
+            {group}
+          </Button>
+        )}
+      </Box>
+      <Popover
+        id='mouse-over-popover'
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={anchorOrigin}
+        transformOrigin={transformOrigin}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <List sx={{ pointerEvents: 'auto' }}>
+          {subgroups.map((subgroup) => (
+            <Fragment key={uuid()}>
+              <ListItemButton sx={{ my: 1 }} onClick={() => click('/subgroup')}>
+                <ListItemText primary={subgroup.name} />
+              </ListItemButton>
               <Divider />
-              {selectSubgroups(subgroups)}
-            </Menu>
-          </>
-        );
-      }}
-    </PopupState>
+            </Fragment>
+          ))}
+        </List>
+      </Popover>
+    </Box>
   );
 };
 

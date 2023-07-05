@@ -20,40 +20,37 @@ const SideBarButton: FC<ISideBarButton> = ({
   const theme = useTheme();
   const navigate = useNavigate();
   return (
-    <ListItem>
-      <ListItemButton
-        sx={{
-          height: '2.4rem',
-          textAlign: 'center !important',
-          borderRadius: 5,
-          bgcolor: pathname === path ? `${blue[500]} !important` : '',
-          color:
-            pathname === path
-              ? '#FFF !important'
-              : theme.palette.text.secondary,
-          '&:hover': {
-            bgcolor: `${blue[500]} !important`,
-            color: '#FFF',
-            // '& .MuiSvgIcon-root': {
-            //   color: '#FFF !important',
-            // },
-          },
-        }}
-        onClick={() => {
-          navigate(path);
-          click();
-        }}
-      >
-        {/* <ListItemIcon
+    <ListItemButton
+      sx={{
+        my: 2,
+        height: '2.4rem',
+        textAlign: 'center !important',
+        borderRadius: 5,
+        bgcolor: pathname === path ? `${blue[500]} !important` : '',
+        color:
+          pathname === path ? '#FFF !important' : theme.palette.text.secondary,
+        // '&:hover': {
+        //   bgcolor: `${blue[500]} !important`,
+        //   color: '#FFF',
+        // '& .MuiSvgIcon-root': {
+        //   color: '#FFF !important',
+        // },
+        // },
+      }}
+      onClick={() => {
+        navigate(path);
+        click();
+      }}
+    >
+      {/* <ListItemIcon
           sx={{
             color: pathname === path ? '#FFF' : theme.palette.text.secondary,
           }}
         >
           {icon}
         </ListItemIcon> */}
-        <ListItemText primary={name} />
-      </ListItemButton>
-    </ListItem>
+      <ListItemText primary={name} />
+    </ListItemButton>
   );
 };
 
