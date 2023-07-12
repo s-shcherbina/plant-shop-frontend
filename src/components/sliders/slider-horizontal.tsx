@@ -15,9 +15,9 @@ const SliderHorizontal: FC<{ num: number }> = ({ num }) => {
 
   return (
     <Swiper
-      pagination={{
-        clickable: true,
-      }}
+      // pagination={{
+      //   clickable: true,
+      // }}
       // modules={[Pagination]}
       modules={[Scrollbar, A11y, Autoplay, EffectCoverflow, Pagination]}
       nested={true}
@@ -30,7 +30,7 @@ const SliderHorizontal: FC<{ num: number }> = ({ num }) => {
       speed={10000}
       // direction={'vertical'}
       slidesPerView={num}
-      // slidesPerGroup={4}
+      slidesPerGroup={num}
       scrollbar={{ draggable: true }}
       loop={true}
     >

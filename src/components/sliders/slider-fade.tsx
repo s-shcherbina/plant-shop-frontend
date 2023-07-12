@@ -10,7 +10,7 @@ const SliderFade = ({ items }: any) => {
 
   return (
     <Swiper
-      modules={[EffectFade, Pagination, A11y, Autoplay]}
+      modules={[EffectFade, A11y, Autoplay]}
       // modules={[ Pagination, A11y, EffectCube, Autoplay]}
       autoplay={{
         delay: 5000,

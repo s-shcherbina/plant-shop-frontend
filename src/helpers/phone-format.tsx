@@ -34,17 +34,18 @@ const PhoneFormat: FC<IPhoneProps> = ({ values, setValues }): JSX.Element => {
   return (
     <FormControl variant='standard' fullWidth size='small'>
       <InputLabel htmlFor='formatted-text-mask-input'>
-        Номер телефону (введіть тільки цифри)
+        Телефон (вводьте лише цифри)
       </InputLabel>
       <Input
+        placeholder='телефон'
         onFocus={() => {
           !values.textmask && setValues({ ...values, textmask: '+38(0' });
         }}
         value={values.textmask}
         onChange={handleChange}
         name='textmask'
-        // id='formatted-text-mask-input'
         inputComponent={TextMaskCustom as any}
+        sx={{ pt: 1 }}
       />
     </FormControl>
   );

@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 import {
   Phone,
-  MenuOpen,
   Menu,
   Brightness7,
   Brightness4,

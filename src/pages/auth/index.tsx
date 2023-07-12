@@ -1,22 +1,24 @@
 import { FC, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Center } from '../../helpers';
-import { Fade, Grow, IconButton, Paper, Zoom, useTheme } from '@mui/material';
+import { Grow, IconButton, Paper } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import imgMain from '../../assets/img-main.jpg';
 import Login from './login ';
-// import Register from './register';
 import { ILocal, IPhoneMask } from '../../types';
-import { instance, instanceAuth } from '../../utils/axios';
+import { instance } from '../../utils/axios';
 import { useAppDispatch } from '../../utils/hooks';
 import { login } from '../../store/slices/auth';
-import CustomerData from '../../components/customer-data';
+import Register from './register';
 
 const AuthRoot: FC = (): JSX.Element => {
   // const theme = useTheme();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  // const [open, setOpen] = useState(false);
+  const [grow, setGrow] = useState(true);
 
   const [values, setValues] = useState<IPhoneMask>({
     textmask: '',
@@ -29,7 +31,7 @@ const AuthRoot: FC = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [formPhone, setFormPhone] = useState(false);
+  // const [formPhone, setFormPhone] = useState(false);
   const [form, setForm] = useState(false);
 
   const [auth, setAuth] = useState(false);
@@ -119,11 +121,11 @@ const AuthRoot: FC = (): JSX.Element => {
             console.log(registerData);
             console.log(localStorage.getItem('token'));
 
-            const updatedUser = await instanceAuth.patch(
-              'auth/user',
-              registerData
-            );
-            dispatch(login(updatedUser.data));
+            // const updatedUser = await instanceAuth.patch(
+            //   'auth/user',
+            //   registerData
+            // );
+            // dispatch(login(updatedUser.data));
             setForm(false);
             navigate('/');
           } else {
@@ -308,7 +310,7 @@ const AuthRoot: FC = (): JSX.Element => {
     //
     // <Grow in={true}>style={{ transitionDelay: '10ms' }}
     // <Zoom in={true}>
-    <Grow in={true} {...{ timeout: 500 }}>
+    <Grow in={true} {...{ timeout: 300 }}>
       <Center
         sx={{
           height: {
@@ -319,7 +321,8 @@ const AuthRoot: FC = (): JSX.Element => {
           py: 2,
         }}
       >
-        {/* <Grow in={true} {...{ timeout: 300 }}>
+        {/* <Grow in={open || grow} {...{ timeout: 300 }}> */}
+        <Grow in={grow} {...{ timeout: 300 }}>
           <Paper
             elevation={6}
             sx={{
@@ -336,58 +339,63 @@ const AuthRoot: FC = (): JSX.Element => {
               onClick={() => navigate('/')}
             >
               <Close />
-            </IconButton> */}
-        {pathname === '/login' ? (
-          <Login
-            setEmail={setEmail}
-            setPassword={setPassword}
-            navigate={navigate}
-            // register={register}
-            // errors={errors}
-          />
-        ) : pathname === '/register' ? (
-          <>
-            <CustomerData
-            // firstName={firstName}
-            // setFirstName={setFirstName}
-            // lastName={lastName}
-            // setLastName={setLastName}
-            // setDelivery={setDelivery}
-            // setLocality={setLocality}
-            // setDepartment={setDepartment}
-            // setValues={setValues}
-            // values={values}
-            // delivery={delivery}
-            // locality={locality}
-            // department={department}
-            // formPhone={formPhone}
-            // setFormPhone={setFormPhone}
-            />
-          </>
-        ) : // <Register
-        //   firstName={firstName}
-        //   setFirstName={setFirstName}
-        //   lastName={lastName}
-        //   setLastName={setLastName}
-        //   setDelivery={setDelivery}
-        //   setLocality={setLocality}
-        //   setDepartment={setDepartment}
-        //   setEmail={setEmail}
-        //   setPassword={setPassword}
-        //   setConfirmPassword={setConfirmPassword}
-        //   setValues={setValues}
-        //   values={values}
-        //   delivery={delivery}
-        //   locality={locality}
-        //   department={department}
-        //   navigate={navigate}
-        //   form={form}
-        //   setForm={setForm}
-        // />
-        null}
-        {/* </Paper> */}
-        {/* </Zoom> */}
-        {/* </Grow> */}
+            </IconButton>
+            {pathname === '/login' ? (
+              <Login
+                setEmail={setEmail}
+                setPassword={setPassword}
+                navigate={navigate}
+                setGrow={setGrow}
+
+                // register={register}
+                // errors={errors}
+              />
+            ) : pathname === '/register' ? (
+              <>
+                <Register
+                  // open={open}
+                  // setOpen={setOpen}
+                  setGrow={setGrow}
+                  // firstName={firstName}
+                  // setFirstName={setFirstName}
+                  // lastName={lastName}
+                  // setLastName={setLastName}
+                  // setDelivery={setDelivery}
+                  // setLocality={setLocality}
+                  // setDepartment={setDepartment}
+                  // setValues={setValues}
+                  // values={values}
+                  // delivery={delivery}
+                  // locality={locality}
+                  // department={department}
+                  // formPhone={formPhone}
+                  // setFormPhone={setFormPhone}
+                />
+              </>
+            ) : // <Register
+            //   firstName={firstName}
+            //   setFirstName={setFirstName}
+            //   lastName={lastName}
+            //   setLastName={setLastName}
+            //   setDelivery={setDelivery}
+            //   setLocality={setLocality}
+            //   setDepartment={setDepartment}
+            //   setEmail={setEmail}
+            //   setPassword={setPassword}
+            //   setConfirmPassword={setConfirmPassword}
+            //   setValues={setValues}
+            //   values={values}
+            //   delivery={delivery}
+            //   locality={locality}
+            //   department={department}
+            //   navigate={navigate}
+            //   form={form}
+            //   setForm={setForm}
+            // />
+            null}
+          </Paper>
+          {/* </Zoom> */}
+        </Grow>
       </Center>
       {/* </Zoom> */}
     </Grow>

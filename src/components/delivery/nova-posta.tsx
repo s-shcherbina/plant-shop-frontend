@@ -73,7 +73,7 @@ const NovaPoshta: FC<IPropsNovaPoshta> = ({
   }, [locality, department]);
 
   return (
-    <Stack>
+    <Stack spacing={2}>
       <SearchLocality
         locality={locality}
         setLocality={setLocality}
@@ -83,31 +83,33 @@ const NovaPoshta: FC<IPropsNovaPoshta> = ({
         setDepartment={setDepartment}
       />
 
-      <Autocomplete
-        value={department}
-        inputValue={department.replace(
-          /[^БВГҐДЖЗКЛМНПРСТФХЦЧШЩЙАЕЄИІЇОУЮЯбвгґджзклмнпрстфхцчшщйаеєиіїоуюяь .,№0-9]/gi,
-          ''
-        )}
-        onInputChange={(e, newInputValue: string) =>
-          setDepartment(
-            newInputValue.replace(
-              /[^БВГҐДЖЗКЛМНПРСТФХЦЧШЩЙАЕЄИІЇОУЮЯбвгґджзклмнпрстфхцчшщйаеєиіїоуюяь .,№0-9]/gi,
-              ''
+      {locality && (
+        <Autocomplete
+          value={department}
+          inputValue={department.replace(
+            /[^БВГҐДЖЗКЛМНПРСТФХЦЧШЩЙАЕЄИІЇОУЮЯбвгґджзклмнпрстфхцчшщйаеєиіїоуюяь .,№0-9]/gi,
+            ''
+          )}
+          onInputChange={(e, newInputValue: string) =>
+            setDepartment(
+              newInputValue.replace(
+                /[^БВГҐДЖЗКЛМНПРСТФХЦЧШЩЙАЕЄИІЇОУЮЯбвгґджзклмнпрстфхцчшщйаеєиіїоуюяь .,№0-9]/gi,
+                ''
+              )
             )
-          )
-        }
-        options={departs}
-        isOptionEqualToValue={(option: any) => option.label}
-        renderInput={(params) => (
-          <TextField
-            variant='standard'
-            label='Відділення'
-            placeholder='Для пошуку введіть номер або вулицю відділення'
-            {...params}
-          />
-        )}
-      />
+          }
+          options={departs}
+          isOptionEqualToValue={(option: any) => option.label}
+          renderInput={(params) => (
+            <TextField
+              variant='standard'
+              label='Відділення'
+              placeholder='Для пошуку введіть номер або вулицю відділення'
+              {...params}
+            />
+          )}
+        />
+      )}
     </Stack>
   );
 };

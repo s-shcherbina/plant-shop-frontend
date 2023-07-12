@@ -115,6 +115,7 @@ export interface IpropsLogin {
   setEmail: (value: string) => void;
   setPassword: (value: string) => void;
   navigate: (to: string) => void;
+  setGrow: (value: boolean) => void;
 }
 
 export interface IRegisterData extends ILoginData {

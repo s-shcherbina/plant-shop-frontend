@@ -4,7 +4,7 @@ import 'swiper/swiper-bundle.min.css';
 import { useState } from 'react';
 import { Grid, IconButton, Stack, Typography } from '@mui/material';
 import uuid from 'react-uuid';
-import { itemsXL } from '../../common/moks';
+import { items, itemsXL } from '../../common/moks';
 import { Info } from '@mui/icons-material';
 import { BetweenCenter } from '../../helpers';
 
@@ -25,10 +25,11 @@ const SliderVertical = () => {
       speed={10000}
       direction={'vertical'}
       slidesPerView={5}
+      slidesPerGroup={5}
       scrollbar={{ draggable: true }}
       loop={true}
     >
-      {itemsXL.concat(itemsXL.reverse()).map((item: any, index: number) => (
+      {/* {itemsXL.concat(itemsXL.reverse()).map((item: any, index: number) => (
         <SwiperSlide
           key={uuid()}
           // onClick={() => setNum(index)}
@@ -77,7 +78,33 @@ const SliderVertical = () => {
                 </BetweenCenter>
               </Stack>
             </Grid>
-          </Grid>
+          </Grid> */}
+      {items.concat(items.reverse()).map((item) => (
+        <SwiperSlide
+          key={uuid()}
+          // onClick={() => setNum(index)}
+          style={{ cursor: 'pointer' }}
+        >
+          {/* <Stack> */}
+          <Stack
+            direction='column-reverse'
+            sx={{
+              background: `url(${item.image}) center/cover`,
+              height: 125,
+              minWidth: 200,
+              color: '#FFF',
+              borderRadius: 1,
+            }}
+            // onClick={() => setNum(index)}
+          >
+            <BetweenCenter>
+              <Typography variant='body1'>{item.name}</Typography>
+              <IconButton>
+                <Info sx={{ color: '#FFF' }} />
+              </IconButton>
+            </BetweenCenter>
+          </Stack>
+          {/* </Stack> */}
         </SwiperSlide>
       ))}
     </Swiper>

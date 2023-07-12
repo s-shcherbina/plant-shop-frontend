@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { loginActions, logoutActions } from '../common/moks';
 import uuid from 'react-uuid';
 import { yellow } from '@mui/material/colors';
+import { useAuth } from '../utils/hooks';
 // import { PopupIconButton } from '.';
 // import { useAdmin, useAuth } from '../utils/hooks';
 
 const LoginButton: FC = (): JSX.Element => {
   const navigate = useNavigate();
-  // const auth = useAuth();
+  const auth = useAuth();
+  // console.log(auth);
   // const admin = useAdmin();
-  const auth = false;
+  // const auth = false;
 
   return (
     <PopupState variant='popover'>

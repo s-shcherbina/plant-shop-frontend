@@ -14,7 +14,7 @@ export const authSlice = createSlice({
     login(state, action) {
       state.user = action.payload;
       state.isLogged = true;
-      state.isAdmin = state.user.userData.role === 'ADMIN' ? true : false;
+      // state.isAdmin = state.user.userData.role === 'ADMIN' ? true : false;
 
       // console.log('user', state.user);
       // console.log('isLogged', state.isLogged);

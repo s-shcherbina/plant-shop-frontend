@@ -35,7 +35,7 @@ const UkrPoshta: FC<IPropsUkrPoshta> = ({
   }, [search]);
 
   return (
-    <Stack>
+    <Stack spacing={2}>
       <SearchLocality
         locality={locality}
         setLocality={setLocality}
@@ -45,26 +45,27 @@ const UkrPoshta: FC<IPropsUkrPoshta> = ({
         setDepartment={setDepartment}
       />
 
-      {delivery === 'Укрпошта' ? (
-        <TextField
-          size='small'
-          variant='standard'
-          label='індекс'
-          // type='number'
-          placeholder='Індекс відділення укрпошти(5 цифр)'
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-        />
-      ) : (
-        <TextField
-          size='small'
-          variant='standard'
-          label='№ відділення'
-          // type='number'
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-        />
-      )}
+      {locality &&
+        (delivery === 'Укрпошта' ? (
+          <TextField
+            size='small'
+            variant='standard'
+            label='індекс'
+            // type='number'
+            placeholder='Індекс відділення укрпошти(5 цифр)'
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+          />
+        ) : (
+          <TextField
+            size='small'
+            variant='standard'
+            label='№ відділення'
+            // type='number'
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+          />
+        ))}
     </Stack>
   );
 };
