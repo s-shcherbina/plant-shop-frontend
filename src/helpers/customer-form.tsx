@@ -32,13 +32,32 @@ const CustomerForm: FC<{
 
   const [update, setUpdate] = useState(true);
 
+  const unEditForm =
+    user &&
+    Object.values(user)
+      .slice(1, -2)
+      .map((item) => (
+        <Box
+          key={uuid()}
+          sx={{
+            p: 1,
+            borderBottom: bottom,
+          }}
+        >
+          <Typography>{item}</Typography>
+        </Box>
+      ));
+
+  console.log(user?.role.slice(-5));
+
   return (
     <Stack>
       {open &&
         (auth ? (
           update ? (
             <Stack spacing={2} sx={{ mt: 2 }}>
-              {Object.values(user)
+              {unEditForm}
+              {/* {Object.values(user)
                 .slice(1, -2)
                 .map((item) => (
                   <Box
@@ -50,7 +69,7 @@ const CustomerForm: FC<{
                   >
                     <Typography>{item}</Typography>{' '}
                   </Box>
-                ))}
+                ))} */}
               <Button
                 endIcon={<EditNote />}
                 variant='outlined'

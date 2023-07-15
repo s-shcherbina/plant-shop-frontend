@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Customer from '../../components/customer';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { ILoginData, IUserData } from '../../types';
-import { JustifyCenter } from '../../helpers';
-import { instance, instanceAuth } from '../../utils/axios';
+import { instanceAuth } from '../../utils/axios';
 import { login } from '../../store/slices/auth';
 
 const Register: FC<{
@@ -25,24 +24,27 @@ const Register: FC<{
     email,
     password,
   };
-  delete registerData.id;
   console.log(registerData);
 
   const registerForm = async (e: any) => {
     e.preventDefault();
-    // delete registerData.id;
-    // delete registerData.role;
+
     console.log(registerData);
+
     if (password === confirmPassword) {
       try {
-        const newUser = await instanceAuth.patch('auth/user', registerData);
+        const newUser = await instanceAuth.patch(
+          'auth/register_user',
+          registerData
+        );
         console.log(newUser);
         localStorage.setItem('token', newUser.data.accessToken);
 
         dispatch(login(newUser.data));
         navigate('/');
       } catch (e: any) {
-        console.error(e.response.data.message);
+        console.error(e.response?.data?.message);
+        // navigate('/login');
       }
     } else {
       // throw new Error(AppErrors.PasswordsDoNotMatch);
@@ -77,11 +79,7 @@ const Register: FC<{
             />
             <Button
               fullWidth
-              sx={{
-                borderRadius: 5,
-                mt: 1,
-                mb: 1,
-              }}
+              sx={{ borderRadius: 5, my: 1 }}
               type='submit'
               variant='contained'
             >
@@ -90,24 +88,6 @@ const Register: FC<{
           </Stack>
         )}
       </form>
-      <JustifyCenter sx={{ mt: 1 }}>
-        <Typography variant='body1'>
-          Зареєстровані?
-          <Button
-            size='small'
-            sx={{ borderRadius: 5, mx: 1 }}
-            onClick={() => {
-              setGrow(false);
-              setTimeout(() => {
-                navigate('/login');
-                setGrow(true);
-              }, 300);
-            }}
-          >
-            Вхід
-          </Button>
-        </Typography>
-      </JustifyCenter>
     </Stack>
   );
 };

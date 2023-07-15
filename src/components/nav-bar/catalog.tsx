@@ -1,4 +1,4 @@
-import { AppBar, Box } from '@mui/material';
+import { AppBar } from '@mui/material';
 import { FC, useState } from 'react';
 import { groups } from '../../common/moks';
 import { Between } from '../../helpers';
@@ -35,44 +35,6 @@ const Catalog: FC = (): JSX.Element => {
           />
         ))}
       </Between>
-      {/* <Between
-        sx={{
-          display: {
-            xs: 'none',
-            sm: 'flex',
-            lg: 'none',
-          },
-        }}
-      >
-        {groups.slice(0, 4).map((group) => (
-          <GroupButton
-            key={group.name}
-            sideButton={false}
-            color={color}
-            setColor={setColor}
-            group={group.name}
-          />
-        ))}
-      </Between>
-      <Between
-        sx={{
-          display: {
-            xs: 'none',
-            sm: 'flex',
-            lg: 'none',
-          },
-        }}
-      >
-        {groups.slice(4).map((group) => (
-          <GroupButton
-            key={group.name}
-            sideButton={false}
-            color={color}
-            setColor={setColor}
-            group={group.name}
-          />
-        ))}
-      </Between>*/}
     </AppBar>
   );
 };

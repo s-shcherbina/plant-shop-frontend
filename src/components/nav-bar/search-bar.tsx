@@ -28,7 +28,7 @@ const SearchBar: FC = (): JSX.Element => {
   return (
     <AppBar
       position='static'
-      sx={{ p: 1, bgcolor: yellow[500], color: blue[700] }}
+      sx={{ p: 0.5, bgcolor: yellow[500], color: blue[700] }}
     >
       <Between sx={{ px: { sm: 1, lg: 2 }, height: '2.4rem' }}>
         <Flex sx={{ overflow: 'hidden' }}>

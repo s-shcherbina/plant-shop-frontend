@@ -1,14 +1,8 @@
 import {
   Collections,
-  Yard,
   LocalFlorist,
   ContactPage,
-  Menu,
   Home,
-  ListAltOutlined,
-  ListAlt,
-  Description,
-  PostAdd,
   NoteAdd,
   ManageAccounts,
   PersonRemove,
@@ -32,8 +26,6 @@ import Order from '../pages/order';
 import Product from '../pages/product';
 import AuthRoot from '../pages/auth';
 import Contacts from '../pages/contacts';
-
-// import React from 'react';
 
 export const navMenu = [
   {

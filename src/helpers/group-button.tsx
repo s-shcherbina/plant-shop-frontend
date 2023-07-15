@@ -7,18 +7,17 @@ import {
   ListItemButton,
   ListItemText,
   Popover,
-  // useTheme,
 } from '@mui/material';
 import { FC, Fragment, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { subgroups } from '../common/moks';
-// import { blue } from '@mui/material/colors';
+import { IOrigin } from '../types';
 
-interface IOrigin {
-  vertical: number | 'center' | 'bottom' | 'top';
-  horizontal: number | 'center' | 'right' | 'left';
-}
+// interface IOrigin {
+//   vertical: number | 'center' | 'bottom' | 'top';
+//   horizontal: number | 'center' | 'right' | 'left';
+// }
 
 const GroupButton: FC<{
   color: string;
@@ -35,7 +34,6 @@ const GroupButton: FC<{
 }): JSX.Element => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  // const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const open = Boolean(anchorEl);
@@ -62,28 +60,12 @@ const GroupButton: FC<{
         onMouseEnter={handlePopoverOpen}
       >
         {anchorOrigin.horizontal === 'right' ? (
-          <ListItem>
+          <ListItem sx={{ height: '9vh' }}>
             <ListItemButton
               sx={{
-                my: 1.6,
                 height: '2.4rem',
                 textAlign: 'center !important',
                 borderRadius: 5,
-                // bgcolor:
-                //   color === group && pathname === '/group'
-                //     ? `${blue[500]} !important`
-                //     : '',
-                // color:
-                //   color === group
-                //     ? '#FFF !important'
-                //     : theme.palette.text.secondary,
-                // '&:hover': {
-                //   bgcolor: `${blue[500]} !important`,
-                //   color: '#FFF',
-                // '& .MuiSvgIcon-root': {
-                //   color: '#FFF !important',
-                // },
-                // },
               }}
               onClick={() => click('/group')}
             >
@@ -109,7 +91,6 @@ const GroupButton: FC<{
         )}
       </Box>
       <Popover
-        id='mouse-over-popover'
         sx={{
           pointerEvents: 'none',
         }}

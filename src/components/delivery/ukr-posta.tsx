@@ -15,24 +15,51 @@ const UkrPoshta: FC<IPropsUkrPoshta> = ({
   const [locals, setLocals] = useState<ILocal[]>([]);
 
   useEffect(() => {
-    axios
-      .post(`https://api.novaposhta.ua/v2.0/json/Address/searchSettlements/`, {
-        apiKey: '90a376cfc91d1decf5363be40688f127',
-        modelName: 'Address',
-        calledMethod: 'searchSettlements',
-        methodProperties: {
-          CityName: search.length > 1 ? search : '',
-          Limit: 500,
-        },
-      })
-      .then((res) =>
+    (async () => {
+      try {
+        const { data } = await axios.post(
+          `https://api.novaposhta.ua/v2.0/json/Address/searchSettlements/`,
+          {
+            apiKey: '90a376cfc91d1decf5363be40688f127',
+            modelName: 'Address',
+            calledMethod: 'searchSettlements',
+            methodProperties: {
+              CityName: search.length > 1 ? search : '',
+              Limit: 500,
+            },
+          }
+        );
         setLocals(
-          res.data.data[0].Addresses.map((adress: any) => {
+          data.data[0].Addresses.map((adress: any) => {
             return { label: adress.Present };
           })
-        )
-      );
+        );
+      } catch (e: any) {
+        console.error(e.response?.data?.message);
+      }
+    })();
   }, [search]);
+
+  // useEffect(() => {
+  //   axios
+  //     .post(`https://api.novaposhta.ua/v2.0/json/Address/searchSettlements/`, {
+  //       apiKey: '90a376cfc91d1decf5363be40688f127',
+  //       modelName: 'Address',
+  //       calledMethod: 'searchSettlements',
+  //       methodProperties: {
+  //         CityName: search.length > 1 ? search : '',
+  //         Limit: 500,
+  //       },
+  //     })
+  //     .then((res) =>
+  //       setLocals(
+  //         res.data.data[0].Addresses.map((adress: any) => {
+  //           return { label: adress.Present };
+  //         })
+  //       )
+  //     )
+  //     .catch((e: any) => console.error(e.response?.data?.message));
+  // }, [search]);
 
   return (
     <Stack spacing={2}>

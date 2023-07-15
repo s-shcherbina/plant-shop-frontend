@@ -20,7 +20,6 @@ import { IDrawerCatalog } from '../types';
 const DrawerCatalog: FC<IDrawerCatalog> = ({
   catalogOpen,
   catalogToggle,
-  setPage,
   navigate,
 }): JSX.Element => {
   const [subgroupVisible, setSubgroupVisible] = useState(false);
@@ -31,16 +30,10 @@ const DrawerCatalog: FC<IDrawerCatalog> = ({
         {groups.map((group) => (
           <Box key={uuid()}>
             <Stack>
-              {/* <Stack
-                direction={'row'} divider={<Divider orientation='vertical' flexItem />}*/}
               <Flex>
                 <ListItemButton
-                  // sx={{
-                  //   background: page === group ? blue[600] : '',
-                  // }}
                   onClick={() => {
                     navigate(group.path);
-                    setPage(group.path);
                     catalogToggle();
                   }}
                 >
@@ -101,7 +94,6 @@ const DrawerCatalog: FC<IDrawerCatalog> = ({
         sx={{
           display: { xs: 'block', lg: 'none' },
           '& .MuiDrawer-paper': {
-            // width: { xs: '100%', sm: '60%' },
             width: { xs: '100%', sm: '60%', lg: '40%' },
             height: '100%',
           },

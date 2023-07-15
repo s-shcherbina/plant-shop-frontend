@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Stack, TextField } from '@mui/material';
 import Delivery from './delivery';
 import { ILocal, IPhoneMask } from '../types';
@@ -8,7 +8,7 @@ import { login } from '../store/slices/auth';
 import PhoneForm from '../helpers/phone-form';
 import CustomerForm from '../helpers/customer-form';
 
-const regexp =
+export const regexp =
   /^(\+38\(0)(39|50|63|66|67|68|73|89|9[1-9])\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/;
 
 const Customer: FC<{
@@ -115,12 +115,17 @@ const Customer: FC<{
     </Stack>
   );
 
+  useEffect(() => {
+    if (auth) {
+      setOpen(true);
+    }
+  }, [auth]);
+
   return (
     <Stack>
       <form onSubmit={phoneForm}>
         {!open && (
           <PhoneForm
-            regexp={regexp}
             setGrow={setGrow}
             setOpen={setOpen}
             values={values}

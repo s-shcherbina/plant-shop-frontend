@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, A11y, EffectCube, Autoplay, EffectFade } from 'swiper';
+import { A11y, Autoplay, EffectFade } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import { Stack, Typography } from '@mui/material';
 import uuid from 'react-uuid';
@@ -18,7 +18,7 @@ const SliderFade = ({ items }: any) => {
       }}
       speed={3000}
       slidesPerView={1}
-      pagination={{ clickable: true }}
+      // pagination={{ clickable: true }}
       loop={true}
       effect={'fade'}
       fadeEffect={{
@@ -36,13 +36,13 @@ const SliderFade = ({ items }: any) => {
         <SwiperSlide
           key={uuid()}
           // onClick={() => setNum(index)}
-          style={{ cursor: 'pointer' }}
+          // style={{ cursor: 'pointer' }}
         >
           <Stack
             direction='column-reverse'
             sx={{
               background: `url(${item.image}) center/cover`,
-              height: { xs: '45vh', sm: '60vh', md: '68vh', lg: '80vh' },
+              height: { xs: 300, sm: 450, md: '68vh', lg: '81vh' },
               color: '#FFF',
               textAlign: 'center',
               borderRadius: 2,

@@ -3,14 +3,14 @@ import { Button, Stack } from '@mui/material';
 import { IPhoneMask } from '../types';
 import PhoneFormat from '../helpers/phone-format';
 import { NavigateNext } from '@mui/icons-material';
+import { regexp } from '../components/customer';
 
 const PhoneForm: FC<{
-  regexp: RegExp;
   setGrow: (value: boolean) => void;
   setOpen: (value: boolean) => void;
   values: IPhoneMask;
   setValues: (values: IPhoneMask) => void;
-}> = ({ regexp, setGrow, setOpen, values, setValues }): JSX.Element => {
+}> = ({ setGrow, setOpen, values, setValues }): JSX.Element => {
   return (
     <Stack>
       <PhoneFormat values={values} setValues={setValues} />

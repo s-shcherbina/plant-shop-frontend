@@ -8,7 +8,7 @@ export interface ISideBarButton {
 }
 
 export interface IDrawerCatalog {
-  setPage: (value: string) => void;
+  // setPage: (value: string) => void;
   navigate: (to: string) => void;
   catalogOpen: boolean;
   catalogToggle: () => void;
@@ -112,9 +112,9 @@ export interface ILoginData {
 }
 
 export interface IpropsLogin {
-  setEmail: (value: string) => void;
-  setPassword: (value: string) => void;
-  navigate: (to: string) => void;
+  // setEmail: (value: string) => void;
+  // setPassword: (value: string) => void;
+  // navigate: (to: string) => void;
   setGrow: (value: boolean) => void;
 }
 
@@ -162,4 +162,9 @@ export interface AuthResponse {
   userData: IUserResponse;
   accessToken: string;
   refreshToken: string;
+}
+
+export interface IOrigin {
+  vertical: number | 'center' | 'bottom' | 'top';
+  horizontal: number | 'center' | 'right' | 'left';
 }

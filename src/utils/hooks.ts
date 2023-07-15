@@ -14,14 +14,22 @@ export const useAdmin = () => {
   return user?.userData?.role === 'ADMIN' ? true : false;
 };
 
-export const useUser = () => {
-  const { user } = useAppSelector((state) => state.auth);
-  return user?.userData?.role === 'USER' ? true : false;
-};
+// export const useUser = () => {
+//   const { user } = useAppSelector((state) => state.auth);
+//   return user?.userData?.role === 'USER' ? true : false;
+// };
 
 export const useAdminOrUser = () => {
   const { user } = useAppSelector((state) => state.auth);
   return user?.userData?.role === 'USER' || user?.userData?.role === 'ADMIN'
+    ? true
+    : false;
+};
+
+export const useUnLoginUser = () => {
+  const { user } = useAppSelector((state) => state.auth);
+  return user?.userData?.role.slice(-5) === ' USER' ||
+    user?.userData?.role.slice(-5) === 'ADMIN'
     ? true
     : false;
 };

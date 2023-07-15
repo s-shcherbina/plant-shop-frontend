@@ -14,27 +14,28 @@ const NovaPoshta: FC<IPropsNovaPoshta> = ({
   const [search, setSearch] = useState('');
   const [locals, setLocals] = useState<ILocal[]>([]);
   const [departs, setDeparts] = useState<string[]>([]);
-  // console.log(locality);
 
   useEffect(() => {
-    axios
-      .post(`https://api.novaposhta.ua/v2.0/json/Address/getCities`, {
-        apiKey: '90a376cfc91d1decf5363be40688f127',
-        modelName: 'Address',
-        calledMethod: 'getCities',
-        methodProperties: {
-          FindByString: search.length > 1 ? search : '1',
-          Limit: 500,
-        },
-      })
-      .then((res) =>
+    (async () => {
+      try {
+        const { data } = await axios.post(
+          `https://api.novaposhta.ua/v2.0/json/Address/getCities`,
+          {
+            apiKey: '90a376cfc91d1decf5363be40688f127',
+            modelName: 'Address',
+            calledMethod: 'getCities',
+            methodProperties: {
+              FindByString: search.length > 1 ? search : '1',
+              Limit: 500,
+            },
+          }
+        );
         setLocals(
-          res.data.data.map((local: ILocal) => {
+          data.data.map((local: ILocal) => {
             return {
               label: `${local.SettlementTypeDescription} ${
                 local.Description
               }  ${
-                // local.Description.indexOf('обл') < 0
                 local.Description.indexOf('обл') === -1
                   ? '(' + local.AreaDescription + ' обл.)'
                   : ''
@@ -42,35 +43,124 @@ const NovaPoshta: FC<IPropsNovaPoshta> = ({
               Ref: local.Ref,
             };
           })
-        )
-      );
+        );
+      } catch (e: any) {
+        console.error(e.response?.data?.message);
+      }
+    })();
   }, [search]);
+  // axios
+  //   .post(`https://api.novaposhta.ua/v2.0/json/Address/getCities`, {
+  //     apiKey: '90a376cfc91d1decf5363be40688f127',
+  //     modelName: 'Address',
+  //     calledMethod: 'getCities',
+  //     methodProperties: {
+  //       FindByString: search.length > 1 ? search : '1',
+  //       Limit: 500,
+  //     },
+  //   })
+  //   .then((res) =>
+  //     setLocals(
+  //       res.data.data.map((local: ILocal) => {
+  //         return {
+  //           label: `${local.SettlementTypeDescription} ${
+  //             local.Description
+  //           }  ${
+  //             // local.Description.indexOf('обл') < 0
+  //             local.Description.indexOf('обл') === -1
+  //               ? '(' + local.AreaDescription + ' обл.)'
+  //               : ''
+  //           }`,
+  //           Ref: local.Ref,
+  //         };
+  //       })
+  //     )
+  //   )
+  //   .catch((e: any) => console.error(e.response?.data?.message));
+  // }, [search]);
 
   useEffect(() => {
-    axios
-      .post(
-        `https://api.novaposhta.ua/v2.0/json/AddressGeneral/getWarehouses`,
-        {
-          apiKey: '90a376cfc91d1decf5363be40688f127',
-          modelName: 'Address',
-          calledMethod: 'getWarehouses',
-          methodProperties: {
-            CityRef: locality ? locality.Ref : '1',
-            FindByString: department,
-            Limit: 500,
-          },
-        }
-      )
-      .then((res) =>
+    (async () => {
+      try {
+        const { data } = await axios.post(
+          `https://api.novaposhta.ua/v2.0/json/AddressGeneral/getWarehouses`,
+          {
+            apiKey: '90a376cfc91d1decf5363be40688f127',
+            modelName: 'Address',
+            calledMethod: 'getWarehouses',
+            methodProperties: {
+              CityRef: locality ? locality.Ref : '1',
+              FindByString: department,
+              Limit: 500,
+            },
+          }
+        );
         setDeparts(
-          res.data.data.map((departNP: IDepartNP) => {
+          data.data.map((departNP: IDepartNP) => {
             return {
               label: departNP.Description,
             };
           })
-        )
-      );
+        );
+      } catch (e: any) {
+        console.error(e.response?.data?.message);
+      }
+    })();
   }, [locality, department]);
+
+  // useEffect(() => {
+  //   axios
+  //     .post(
+  //       `https://api.novaposhta.ua/v2.0/json/AddressGeneral/getWarehouses`,
+  //       {
+  //         apiKey: '90a376cfc91d1decf5363be40688f127',
+  //         modelName: 'Address',
+  //         calledMethod: 'getWarehouses',
+  //         methodProperties: {
+  //           CityRef: locality ? locality.Ref : '1',
+  //           FindByString: department,
+  //           Limit: 500,
+  //         },
+  //       }
+  //     )
+  //     .then((res) =>
+  //       setDeparts(
+  //         res.data.data.map((departNP: IDepartNP) => {
+  //           return {
+  //             label: departNP.Description,
+  //           };
+  //         })
+  //       )
+  //     )
+  //     .catch((e: any) => console.error(e.response?.data?.message));
+  // }, [locality, department]);
+
+  //   console.error(console.error(e));
+  // }
+  //   axios
+  //     .post(
+  //       `https://api.novaposhta.ua/v2.0/json/AddressGeneral/getWarehouses`,
+  //       {
+  //         apiKey: '90a376cfc91d1decf5363be40688f127',
+  //         modelName: 'Address',
+  //         calledMethod: 'getWarehouses',
+  //         methodProperties: {
+  //           CityRef: locality ? locality.Ref : '1',
+  //           FindByString: department,
+  //           Limit: 500,
+  //         },
+  //       }
+  //     )
+  //     .then((res) =>
+  //       setDeparts(
+  //         res.data.data.map((departNP: IDepartNP) => {
+  //           return {
+  //             label: departNP.Description,
+  //           };
+  //         })
+  //       )
+  //     );
+  // }, [locality, department]);
 
   return (
     <Stack spacing={2}>
