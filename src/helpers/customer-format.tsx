@@ -10,7 +10,7 @@ const CustomerForm: FC<{
   sign: boolean;
   setSign: (value: boolean) => void;
   setGrow: (value: boolean) => void;
-  // open: boolean;
+  open: boolean;
   values: IPhoneMask;
   setValues: (values: IPhoneMask) => void;
   setLocality: (value: ILocal | null) => void;
@@ -19,7 +19,7 @@ const CustomerForm: FC<{
   setGrow,
   sign,
   setSign,
-  // open,
+  open,
   values,
   setValues,
   setLocality,
@@ -32,7 +32,7 @@ const CustomerForm: FC<{
   const bottom = `1px solid ${theme.palette.text.secondary}`;
   const user = useAppSelector((state) => state.auth.user.userData);
 
-  const [update, setUpdate] = useState(false);
+  const [update, setUpdate] = useState(true);
 
   const unEditForm =
     user &&
@@ -56,8 +56,38 @@ const CustomerForm: FC<{
 
   return (
     <Stack>
-      {!auth ? (
-        <Stack>
+      {open &&
+        (auth ? (
+          update ? (
+            <Stack spacing={2} sx={{ mt: 2 }}>
+              {unEditForm}
+              <Button
+                endIcon={<EditNote />}
+                variant='outlined'
+                sx={{
+                  borderRadius: 5,
+                  mt: 2,
+                  display: 'flex',
+                }}
+                onClick={() => {
+                  setLocality(null);
+                  setGrow(false);
+                  setTimeout(() => {
+                    setUpdate(false);
+                    setGrow(true);
+                  }, 300);
+                }}
+              >
+                Змінити дані
+              </Button>
+            </Stack>
+          ) : (
+            <Stack spacing={2} sx={{ mt: 2 }}>
+              <PhoneFormat values={values} setValues={setValues} />
+              {customerInputs}
+            </Stack>
+          )
+        ) : (
           <>
             <Box
               sx={{
@@ -70,13 +100,10 @@ const CustomerForm: FC<{
             </Box>
             {customerInputs}
           </>
-        </Stack>
-      ) : // ) : unLoggedUser ? (
-      //   <Stack>У Вас є аккаунт! Увійдіть!</Stack>
-      null}
-      {!sign && !unLoggedUser && (
+        ))}
+      {!sign && open && (
         <Button
-          sx={{ borderRadius: 5, mt: 2 }}
+          sx={{ borderRadius: 5, mt: 2, display: 'flex' }}
           endIcon={<NavigateNext />}
           type='submit'
           variant='contained'

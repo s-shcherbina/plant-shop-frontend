@@ -40,27 +40,6 @@ const UkrPoshta: FC<IPropsUkrPoshta> = ({
     })();
   }, [search]);
 
-  // useEffect(() => {
-  //   axios
-  //     .post(`https://api.novaposhta.ua/v2.0/json/Address/searchSettlements/`, {
-  //       apiKey: '90a376cfc91d1decf5363be40688f127',
-  //       modelName: 'Address',
-  //       calledMethod: 'searchSettlements',
-  //       methodProperties: {
-  //         CityName: search.length > 1 ? search : '',
-  //         Limit: 500,
-  //       },
-  //     })
-  //     .then((res) =>
-  //       setLocals(
-  //         res.data.data[0].Addresses.map((adress: any) => {
-  //           return { label: adress.Present };
-  //         })
-  //       )
-  //     )
-  //     .catch((e: any) => console.error(e.response?.data?.message));
-  // }, [search]);
-
   return (
     <Stack spacing={2}>
       <SearchLocality
@@ -78,7 +57,6 @@ const UkrPoshta: FC<IPropsUkrPoshta> = ({
             size='small'
             variant='standard'
             label='індекс'
-            // type='number'
             placeholder='Індекс відділення укрпошти(5 цифр)'
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
@@ -88,7 +66,6 @@ const UkrPoshta: FC<IPropsUkrPoshta> = ({
             size='small'
             variant='standard'
             label='№ відділення'
-            // type='number'
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
           />

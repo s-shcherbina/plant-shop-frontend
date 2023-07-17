@@ -1,6 +1,5 @@
 import { FC, Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAdminOrUser, useUnLoginUser } from '../utils/hooks';
 import {
   Box,
   Divider,
@@ -15,10 +14,13 @@ import { Person } from '@mui/icons-material';
 import { yellow } from '@mui/material/colors';
 import { loginActions, logoutActions } from '../common/moks';
 import uuid from 'react-uuid';
+import { useAdminOrUser } from '../utils/hooks';
 
 const LoginPopover: FC = (): JSX.Element => {
   const navigate = useNavigate();
-  const auth = useUnLoginUser();
+
+  // const unLoggedUser = useUnLoggedUser();
+  const loggedUser = useAdminOrUser();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -31,9 +33,6 @@ const LoginPopover: FC = (): JSX.Element => {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
-  console.log(auth);
-
   return (
     <Box sx={{ pointerEvents: 'auto' }} onMouseLeave={handlePopoverClose}>
       <Box
@@ -63,12 +62,9 @@ const LoginPopover: FC = (): JSX.Element => {
         disableRestoreFocus
       >
         <List sx={{ pointerEvents: 'auto' }}>
-          {(auth ? logoutActions : loginActions).map((action) => (
+          {(loggedUser ? logoutActions : loginActions).map((action) => (
             <Fragment key={uuid()}>
-              <ListItemButton
-                sx={{ my: 1 }}
-                onClick={() => navigate(action.path)}
-              >
+              <ListItemButton onClick={() => navigate(action.path)}>
                 <ListItemIcon>{action.icon}</ListItemIcon>
                 <ListItemText primary={action.text} />
               </ListItemButton>

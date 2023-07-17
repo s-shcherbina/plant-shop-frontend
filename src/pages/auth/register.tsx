@@ -2,7 +2,11 @@ import { FC, useState } from 'react';
 import { Button, Stack, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Customer from '../../components/customer';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useUnLoggedUser,
+} from '../../utils/hooks';
 import { ILoginData, IUserData } from '../../types';
 import { instanceAuth } from '../../utils/axios';
 import { login } from '../../store/slices/auth';
@@ -13,6 +17,8 @@ const Register: FC<{
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user.userData);
+  // const auth = useAuth();
+  const unLoggedUser = useUnLoggedUser();
 
   const [sign, setSign] = useState(false);
   const [email, setEmail] = useState('');
@@ -24,7 +30,8 @@ const Register: FC<{
     email,
     password,
   };
-  console.log(registerData);
+  // console.log(registerData);
+  // console.log(auth);
 
   const registerForm = async (e: any) => {
     e.preventDefault();
@@ -54,11 +61,27 @@ const Register: FC<{
 
   return (
     <Stack>
-      <Typography variant='h4' textAlign='center' sx={{ mt: -2 }}>
-        Реєстрація
+      <Typography variant='h4' textAlign='center' sx={{ mt: -1 }}>
+        {!unLoggedUser ? 'Реєстрація' : 'Ви зареєстровані !'}
       </Typography>
-
-      <Customer setGrow={setGrow} sign={sign} setSign={setSign} />
+      {unLoggedUser && (
+        <Button
+          variant='contained'
+          sx={{ my: 4, borderRadius: 5 }}
+          onClick={() => {
+            setGrow(false);
+            setTimeout(() => {
+              navigate('/login');
+              setGrow(true);
+            }, 300);
+          }}
+        >
+          Увійти
+        </Button>
+      )}
+      {!unLoggedUser && (
+        <Customer setGrow={setGrow} sign={sign} setSign={setSign} />
+      )}
       <form onSubmit={registerForm}>
         {sign && (
           <Stack spacing={2} sx={{ mt: 2 }}>

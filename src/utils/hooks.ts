@@ -9,9 +9,18 @@ export const useAuth = () => {
   return isLogged;
 };
 
+// export const useAuth = () => {
+//   return !!localStorage.getItem('token');
+// };
+
 export const useAdmin = () => {
   const { user } = useAppSelector((state) => state.auth);
   return user?.userData?.role === 'ADMIN' ? true : false;
+};
+
+export const useCustomer = () => {
+  const { user } = useAppSelector((state) => state.auth);
+  return user?.userData?.role === 'CUSTOMER CUSTOMER' ? true : false;
 };
 
 // export const useUser = () => {
@@ -26,10 +35,12 @@ export const useAdminOrUser = () => {
     : false;
 };
 
-export const useUnLoginUser = () => {
+export const useUnLoggedUser = () => {
   const { user } = useAppSelector((state) => state.auth);
-  return user?.userData?.role.slice(-5) === ' USER' ||
-    user?.userData?.role.slice(-5) === 'ADMIN'
+  // return user?.userData?.role.slice(-5) === ' USER' ||
+  //   user?.userData?.role.slice(-5) === 'ADMIN'
+  return user?.userData?.role === 'CUSTOMER USER' ||
+    user?.userData?.role === 'CUSTOMER ADMIN'
     ? true
     : false;
 };

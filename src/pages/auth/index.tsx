@@ -6,10 +6,13 @@ import { Close } from '@mui/icons-material';
 import imgMain from '../../assets/img-main.jpg';
 import Login from './login ';
 import Register from './register';
+import { useUnLoggedUser } from '../../utils/hooks';
 
 const AuthRoot: FC = (): JSX.Element => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const unLoggedUser = useUnLoggedUser();
+
   const [grow, setGrow] = useState(true);
 
   const authPage = (text: string, innerButton: string, path: string) => (
@@ -65,14 +68,15 @@ const AuthRoot: FC = (): JSX.Element => {
             </IconButton>
             {pathname === '/login' ? (
               <>
-                {/* <Login setGrow={setGrow} /> */}
                 <Login />
                 {authPage('Немає аккаунту?', 'Реєстрація', '/register')}
               </>
             ) : pathname === '/register' ? (
               <>
                 <Register setGrow={setGrow} />
-                {authPage('Зареєстровані?', 'Вхід', '/login')}
+                {!unLoggedUser
+                  ? authPage('Зареєстровані?', 'Вхід', '/login')
+                  : null}
               </>
             ) : null}
           </Paper>

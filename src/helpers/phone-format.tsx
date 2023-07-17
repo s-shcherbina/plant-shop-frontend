@@ -45,7 +45,7 @@ const PhoneFormat: FC<IPhoneProps> = ({ values, setValues }): JSX.Element => {
         onChange={handleChange}
         name='textmask'
         inputComponent={TextMaskCustom as any}
-        sx={{ pt: 1 }}
+        sx={{ pt: 0.5 }}
       />
     </FormControl>
   );

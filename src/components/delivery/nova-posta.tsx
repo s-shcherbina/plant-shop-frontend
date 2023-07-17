@@ -49,35 +49,6 @@ const NovaPoshta: FC<IPropsNovaPoshta> = ({
       }
     })();
   }, [search]);
-  // axios
-  //   .post(`https://api.novaposhta.ua/v2.0/json/Address/getCities`, {
-  //     apiKey: '90a376cfc91d1decf5363be40688f127',
-  //     modelName: 'Address',
-  //     calledMethod: 'getCities',
-  //     methodProperties: {
-  //       FindByString: search.length > 1 ? search : '1',
-  //       Limit: 500,
-  //     },
-  //   })
-  //   .then((res) =>
-  //     setLocals(
-  //       res.data.data.map((local: ILocal) => {
-  //         return {
-  //           label: `${local.SettlementTypeDescription} ${
-  //             local.Description
-  //           }  ${
-  //             // local.Description.indexOf('обл') < 0
-  //             local.Description.indexOf('обл') === -1
-  //               ? '(' + local.AreaDescription + ' обл.)'
-  //               : ''
-  //           }`,
-  //           Ref: local.Ref,
-  //         };
-  //       })
-  //     )
-  //   )
-  //   .catch((e: any) => console.error(e.response?.data?.message));
-  // }, [search]);
 
   useEffect(() => {
     (async () => {
